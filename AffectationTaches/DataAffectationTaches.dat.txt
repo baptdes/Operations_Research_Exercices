@@ -1,0 +1,19 @@
+data;
+
+set EMPLOYERS := 
+Pierre
+Jack
+Baptiste;
+
+set TACHES :=
+NettoyerCuisine
+Manger
+FaireProjetIDM;
+
+param scoreTache: NettoyerCuisine Manger FaireProjetIDM :=
+Pierre 9 2 1
+Jack 5 5 5
+Baptiste 3 10 0;
+
+end;
+

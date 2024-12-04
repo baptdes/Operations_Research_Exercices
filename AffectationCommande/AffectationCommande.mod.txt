@@ -1,0 +1,38 @@
+###############################  Model ###############################
+
+
+###############################  Sets  ###############################
+
+set COMMANDES; 
+
+set MAGASINS;
+
+set FLUIDES;
+
+################### Variables ###################
+
+var Q{f in FLUIDES, m in MAGASINS, d in COMMANDES} >= 0; 
+
+###################  Constants: Data to load   #########################
+
+param fluideParCommande{d in COMMANDES, f in FLUIDES};
+
+param fluideParMagasin{m in MAGASINS, f in FLUIDES};
+
+param coutFluideParMagasin{m in MAGASINS, f in FLUIDES};
+
+################### Constraints ###################
+
+
+s.t. RespectStock {m in MAGASINS, f in FLUIDES}:
+  sum{d in COMMANDES} Q[f,m,d] <= fluideParMagasin[m,f];
+
+s.t. RespectCommande {d in COMMANDES, f in FLUIDES}:
+  sum{m in MAGASINS} Q[f,m,d] = fluideParCommande[d,f];
+
+
+###### Objective ######
+
+minimize Cout: 
+	sum{f in FLUIDES, m in MAGASINS, d in COMMANDES} Q[f,m,d] * coutFluideParMagasin[m,f];
+end;

@@ -1,0 +1,32 @@
+###############################  Model ###############################
+
+
+###############################  Sets  ###############################
+
+set EMPLOYERS; 
+
+set TACHES;	
+
+################### Variables ###################
+
+var B{i in EMPLOYERS, j in TACHES}, binary; 
+
+###################  Constants: Data to load   #########################
+
+param scoreTache{i in EMPLOYERS, j in TACHES};
+
+################### Constraints ###################
+
+
+s.t. UnEmployerParTache {j in TACHES}:
+  sum{i in EMPLOYERS} B[i,j] = 1;
+
+s.t. UneTacheParEmployer {i in EMPLOYERS}:
+  sum{j in TACHES} B[i,j] = 1;
+
+
+###### Objective ######
+
+maximize ScoreTotal: 
+		sum{i in EMPLOYERS, j in TACHES} B[i,j]* scoreTache[i,j]; 
+end;

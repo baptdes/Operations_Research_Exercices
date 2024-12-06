@@ -1,0 +1,34 @@
+data;
+
+set COMMANDES := 
+D1
+D2;
+
+set MAGASINS :=
+M1
+M2
+M3;
+
+set COLIS := 
+F1
+F2;
+
+param colisParCommande: F1 F2 :=
+D1 2 0
+D2 1 3;
+
+param colisParMagasin: F1 F2 :=
+M1 2.5 1
+M2 1 2
+M3 2 1;
+
+param coutFixeCommandeParMagasin: M1 M2 M3 := 
+D1 110 90 100
+D2 110 90 100;
+
+param coutVariableCommandeParMagasin: M1 M2 M3 := 
+D1 10 1 5
+D2 2 20 10;
+
+end;
+

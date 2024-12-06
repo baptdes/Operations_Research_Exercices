@@ -1,0 +1,35 @@
+###############################  Model ###############################
+
+
+###############################  Sets  ###############################
+
+set LIEUX; 
+
+################### Variables ###################
+
+var X{i in LIEUX, j in LIEUX}, binary;
+var U{i in LIEUX} >= 0;
+
+###################  Constants: Data to load   #########################
+
+param distance{i in LIEUX, j in LIEUX};
+
+################### Constraints ###################
+
+s.t. DepartChaqueLieu{i in LIEUX}:
+  sum{j in LIEUX} X[i,j] = 1;
+
+s.t. ArriveeChaqueLieu{j in LIEUX}:
+  sum{i in LIEUX} X[i,j] = 1;
+
+s.t. PasReflexivite{i in LIEUX}:
+  X[i,i] = 0;
+
+s.t. EviterBoucle{i in LIEUX, j in LIEUX : i <> j}:
+  U[j] - distance[i,j] - U[i] >= (1 - X[i,j]) * 10;
+
+###### Objective ######
+
+minimize Cout: 
+	sum{i in LIEUX, j in LIEUX} X[i,j] * distance[i,j];
+end;

@@ -1,0 +1,47 @@
+###############################  Model ###############################
+
+
+###############################  Sets  ###############################
+
+set COMMANDES; 
+
+set MAGASINS;
+
+set COLIS;
+
+################### Variables ###################
+
+var Q{f in COLIS, m in MAGASINS, d in COMMANDES}, integer >= 0;
+
+var Y{m in MAGASINS, d in COMMANDES}, binary;
+
+###################  Constants: Data to load   #########################
+
+param colisParCommande{d in COMMANDES, f in COLIS};
+
+param colisParMagasin{m in MAGASINS, f in COLIS};
+
+param coutFixeCommandeParMagasin{d in COMMANDES, m in MAGASINS};
+
+param coutVariableCommandeParMagasin{d in COMMANDES, m in MAGASINS};
+
+################### Constraints ###################
+
+
+s.t. RespectStock {m in MAGASINS, f in COLIS}:
+  sum{d in COMMANDES} Q[f,m,d] <= colisParMagasin[m,f];
+
+s.t. RespectCommande {d in COMMANDES, f in COLIS}:
+  sum{m in MAGASINS} Q[f,m,d] = colisParCommande[d,f];
+
+s.t. RespectRepartitionMagasin1 {d in COMMANDES, m in MAGASINS}:
+  1000 * Y[m,d] >= sum{f in COLIS} Q[f,m,d];
+
+s.t. RespectRepartitionMagasin2 {d in COMMANDES, m in MAGASINS}:
+  Y[m,d] <= sum{f in COLIS} Q[f,m,d];
+
+###### Objective ######
+
+minimize Cout: 
+	(sum{f in COLIS, m in MAGASINS, d in COMMANDES} Q[f,m,d] * coutVariableCommandeParMagasin[d,m]) + (sum{m in MAGASINS, d in COMMANDES} Y[m,d] * coutFixeCommandeParMagasin[d,m]) ;
+end;

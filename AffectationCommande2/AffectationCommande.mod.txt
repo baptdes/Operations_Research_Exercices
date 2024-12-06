@@ -2,34 +2,36 @@
 
 
 ###############################  Sets  ###############################
+ 
+param n;
 
-set LIEUX; 
+param LIEUX{i in 1..n};
 
 ################### Variables ###################
 
-var X{i in LIEUX, j in LIEUX}, binary;
-var U{i in LIEUX} >= 0;
+var X{i in 1..n, j in 1..n}, binary;
+var U{i in 1..n} >= 0;
 
 ###################  Constants: Data to load   #########################
 
-param distance{i in LIEUX, j in LIEUX};
+param distance{i in 1..n, j in 1..n};
 
 ################### Constraints ###################
 
-s.t. DepartChaqueLieu{i in LIEUX}:
-  sum{j in LIEUX} X[i,j] = 1;
+s.t. DepartChaqueLieu{i in 1..n}:
+  sum{j in 1..n} X[i,j] = 1;
 
-s.t. ArriveeChaqueLieu{j in LIEUX}:
-  sum{i in LIEUX} X[i,j] = 1;
+s.t. ArriveeChaqueLieu{j in 1..n}:
+  sum{i in 1..n} X[i,j] = 1;
 
-s.t. PasReflexivite{i in LIEUX}:
+s.t. PasReflexivite{i in 1..n}:
   X[i,i] = 0;
 
-s.t. EviterBoucle{i in LIEUX, j in LIEUX : i <> j}:
-  U[j] - distance[i,j] - U[i] >= (1 - X[i,j]) * 10;
+s.t. EviterBoucle{i in 1..n, j in 2..n : i <> j}:
+  U[j] - distance[i,j] - U[i] >= -(1 - X[i,j])*1000;
 
 ###### Objective ######
 
 minimize Cout: 
-	sum{i in LIEUX, j in LIEUX} X[i,j] * distance[i,j];
+	sum{i in 1..n, j in 1..n} X[i,j] * distance[i,j];
 end;

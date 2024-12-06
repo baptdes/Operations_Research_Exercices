@@ -1,0 +1,153 @@
+Problem:    AffectationCommande
+Rows:       44
+Columns:    42 (36 integer, 36 binary)
+Non-zeros:  183
+Status:     INTEGER OPTIMAL
+Objective:  Cout = 22 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 DepartChaqueLieu[1]
+                                   1             1             = 
+     2 DepartChaqueLieu[2]
+                                   1             1             = 
+     3 DepartChaqueLieu[3]
+                                   1             1             = 
+     4 DepartChaqueLieu[4]
+                                   1             1             = 
+     5 DepartChaqueLieu[5]
+                                   1             1             = 
+     6 DepartChaqueLieu[6]
+                                   1             1             = 
+     7 ArriveeChaqueLieu[1]
+                                   1             1             = 
+     8 ArriveeChaqueLieu[2]
+                                   1             1             = 
+     9 ArriveeChaqueLieu[3]
+                                   1             1             = 
+    10 ArriveeChaqueLieu[4]
+                                   1             1             = 
+    11 ArriveeChaqueLieu[5]
+                                   1             1             = 
+    12 ArriveeChaqueLieu[6]
+                                   1             1             = 
+    13 PasReflexivite[1]
+                                   0            -0             = 
+    14 PasReflexivite[2]
+                                   0            -0             = 
+    15 PasReflexivite[3]
+                                   0            -0             = 
+    16 PasReflexivite[4]
+                                   0            -0             = 
+    17 PasReflexivite[5]
+                                   0            -0             = 
+    18 PasReflexivite[6]
+                                   0            -0             = 
+    19 EviterBoucle[1,2]
+                                  21          -999               
+    20 EviterBoucle[1,3]
+                                -999          -999               
+    21 EviterBoucle[1,4]
+                                  13          -990               
+    22 EviterBoucle[1,5]
+                                  12          -988               
+    23 EviterBoucle[1,6]
+                                  11          -988               
+    24 EviterBoucle[2,3]
+                                 -20          -999               
+    25 EviterBoucle[2,4]
+                                  -8          -992               
+    26 EviterBoucle[2,5]
+                                  -9          -990               
+    27 EviterBoucle[2,6]
+                                 -10          -989               
+    28 EviterBoucle[3,2]
+                                  20          -999               
+    29 EviterBoucle[3,4]
+                                  12          -992               
+    30 EviterBoucle[3,5]
+                                  11          -989               
+    31 EviterBoucle[3,6]
+                                -990          -990               
+    32 EviterBoucle[4,2]
+                                -992          -992               
+    33 EviterBoucle[4,3]
+                                 -12          -992               
+    34 EviterBoucle[4,5]
+                                  -1          -999               
+    35 EviterBoucle[4,6]
+                                  -2          -999               
+    36 EviterBoucle[5,2]
+                                   9          -990               
+    37 EviterBoucle[5,3]
+                                 -11          -989               
+    38 EviterBoucle[5,4]
+                                -999          -999               
+    39 EviterBoucle[5,6]
+                                  -1          -999               
+    40 EviterBoucle[6,2]
+                                  10          -989               
+    41 EviterBoucle[6,3]
+                                 -10          -990               
+    42 EviterBoucle[6,4]
+                                   2          -999               
+    43 EviterBoucle[6,5]
+                                -999          -999               
+    44 Cout                       22                             
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 X[1,1]       *              0             0             1 
+     2 X[1,2]       *              0             0             1 
+     3 X[1,3]       *              1             0             1 
+     4 X[1,4]       *              0             0             1 
+     5 X[1,5]       *              0             0             1 
+     6 X[1,6]       *              0             0             1 
+     7 X[2,1]       *              1             0             1 
+     8 X[2,2]       *              0             0             1 
+     9 X[2,3]       *              0             0             1 
+    10 X[2,4]       *              0             0             1 
+    11 X[2,5]       *              0             0             1 
+    12 X[2,6]       *              0             0             1 
+    13 X[3,1]       *              0             0             1 
+    14 X[3,2]       *              0             0             1 
+    15 X[3,3]       *              0             0             1 
+    16 X[3,4]       *              0             0             1 
+    17 X[3,5]       *              0             0             1 
+    18 X[3,6]       *              1             0             1 
+    19 X[4,1]       *              0             0             1 
+    20 X[4,2]       *              1             0             1 
+    21 X[4,3]       *              0             0             1 
+    22 X[4,4]       *              0             0             1 
+    23 X[4,5]       *              0             0             1 
+    24 X[4,6]       *              0             0             1 
+    25 X[5,1]       *              0             0             1 
+    26 X[5,2]       *              0             0             1 
+    27 X[5,3]       *              0             0             1 
+    28 X[5,4]       *              1             0             1 
+    29 X[5,5]       *              0             0             1 
+    30 X[5,6]       *              0             0             1 
+    31 X[6,1]       *              0             0             1 
+    32 X[6,2]       *              0             0             1 
+    33 X[6,3]       *              0             0             1 
+    34 X[6,4]       *              0             0             1 
+    35 X[6,5]       *              1             0             1 
+    36 X[6,6]       *              0             0             1 
+    37 U[1]                        0             0               
+    38 U[2]                       21             0               
+    39 U[3]                        1             0               
+    40 U[4]                       13             0               
+    41 U[5]                       12             0               
+    42 U[6]                       11             0               
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output

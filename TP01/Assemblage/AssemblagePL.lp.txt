@@ -1,0 +1,11 @@
+\* Problem: Assemblage de vélo *\
+
+Maximize
+Benefice: 700 Qc + 300 Qs 
+
+Subject To
+CapaciteHoraire : 0.06 Qc + 0.05 Qs <= 60
+CapaciteParking : 2.5 Qc + Qs <= 1500
+MaxVeloCargo : Qc <= 700
+
+End

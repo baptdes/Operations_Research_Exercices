@@ -3,27 +3,28 @@ Auteur : Baptiste DESNOUCK et Baptiste ARRIX
 
 ## 2.1.1 Assemblage
 
-### Différentes modélisations
+### Choix du type de programme
 
-**PLNE** : Un vélo est construit en une fois et ne peut être fabriqué qu'en une seule partie et une seule fois.
+Si **un vélo est construit en une fois** et ne peut pas être fabriqué en pièces détachées, alors la quantité de vélo sera entière et donc le programme sera **linéaire en nombres entiers (PLNE)**.
 
-**PL** : Un vélo peut être fait en pièces détachées et l'assemblage peut être réalisé en plusieurs étapes.
+
+Si **un vélo peut être fabriqué en pièces détachées** et l'assemblage peut être réalisé en plusieurs étapes, alors la quantité de vélo est réelle (On peut fabriqué que la roue d'un vélo par exemple). Ainsi, le programme est **linéaire (PL)**
 
 ### Variables
 
-Cas PLNE
+**Cas PLNE**
 
 \[ qc \in \mathbb{N} \text{ : Quantité de vélo Cargo}\]
 
 \[ qs \in \mathbb{N} \text{ : Quantité de vélo standard}\]
 
-Rmq : On remplace N par R dans le cas PL
+**<u>Rmq :</u> On remplace \(\mathbb{N}\) par \(\mathbb{R}\) dans le cas PL**
 
 ### Format de fichier choisi
 
-LP car seulement 2 variables de décisions
+Cette modélisation possède seulement 2 variables (réelle ou entière) et le nombre de variable ne dépend pas des données d'entrées. Ainsi, **le format de fichier `.lp` est le plus adapté.**
 
-### Résultat
+### Résultats
 
 #### PLNE
 ```plaintext
@@ -63,7 +64,13 @@ Objective:  Benefice = 438461.5385 (MAXimum)
 ```
 
 ### Commentaires
-On a des résultats proches pour PL et PLNE; et les ordres de grandeur sont respectés. Le bénéfice pour PL est légèrement meilleur que pour PLNE, ce qui est logique car on peut "diviser" les vélos et ainsi en fabriquer plus.
+
+Le résultat dans le cas PLNE parait cohérent : 
+- L'ordre de grandeur du bénéfice est respecté
+- Le parking est plein puisqu'il faut fabriqué le plus de vélo possible
+- Etant donné que "construire 2 vélo standard" ou "construire 1 vélo cargo" ont à peu près le même coût (L'un est un peu plus chère mais l'autre prend un peu moins de place sur le parking), cela parait cohérent que la capacité en vélo cargo n'ait pas été rempli.
+
+Le résultat pour PL est proche et un peu meilleur que PLNE ce qui est logique vu qu'on peut diviser les vélos en pièces détachées et en fabriquer qu'une seule partie des pièces détachées.
 
 ## 2.1.2 Affectation avec prise en compte des préférences
 
@@ -88,9 +95,9 @@ Pour tout \( j \), \(\sum_{i=1}^{n} b_{ij} = 1\)
 - Un employé ne peut être associé qu'à une seule tâche
 Pour tout \( i \), \(\sum_{j=1}^{n} b_{ij} = 1\)
 
-### Format
+### Format de fichier choisi
 
-`.mod` car matrice de variables avec une taille non fixe.
+Cette modélisation possède une matrice de variables avec une taille non fixe. Ainsi, **le format de fichier `.mod` est le plus adapté.**
 
 ### Résultat
 
@@ -153,7 +160,9 @@ Objective:  ScoreTotal = 24 (MAXimum)
      9 B[Baptiste,FaireProjetIDM]
                     *              0             0             1 
 ```
-Les résultats sont cohérents sur cet exemple simple. Effectivement, chaque personne a eu la tâche qu'il souhaitait le plus.
+
+En regardant les données, on distingue très clairement que la meilleure répartition est de donner à Pierre "NettoyerCuisine" vu que c'est sa tâche préférée ; à Baptiste "Manger" vu que c'est également sa tâche préférée ; et enfin, à Jack ce qui reste vu qu'il n'a pas de préférence sur les tâches.
+Le résultat obtenu est alors correct au vu des explications précédentes.
 
 ## 2.2.1 E-Commerce
 
@@ -183,9 +192,9 @@ avec \( c \) cout unitaire par fluide par magasin
 \forall d, f, \sum_{m} q_{fmd} = \text{fluideParCommande}[d,f]
 \]
 
-### Format
+### Format de fichier choisi
 
-`.mod` car matrice de variables avec une taille non fixe.
+Cette modélisation possède une matrice de variables avec une taille non fixe. Ainsi, **le format de fichier `.mod` est le plus adapté.**
 
 ### Résultat PL
 
@@ -278,9 +287,7 @@ Objective:  Cout = 10 (MINimum)
     11 Q[F2,M3,D1]  *              0             0               
     12 Q[F2,M3,D2]  *              1             0               
 ```
-
-Le cout en PLNE est légérement supérieur que le cout en PL ce qui est cohérent puisqu'on ne peut pas diviser des colis, ce qui réduit l'espace des solutions pour le cas des colis.
-Les ordres de grandeurs sont respectées
+Les deux résultats semblent cohérents au vu de l'ordre de grandeur du coût. Comme précédemment, le coût en PL est légèrement meilleur que le coût en PLNE (c'est-à-dire ici, moins élevé), ce qui est logique puisque l'espace des solutions diminue.
 
 ## 2.2.2 E-Commerce avec coûts fixes et variables
 
@@ -309,21 +316,22 @@ avec \( c_{vmd} \) le coût variable par colis par magasin et \( c_{fmd} \) le c
 \forall d,f, \sum_{m} q_{fmd} = \text{colisParCommande}[d,f]
 \]
 
-- Répartition des magasins (1) :
+- Répartition des magasins (\(y\) doit être égale à 1 quand la quantité pour un magasin m et une commande d donnée est positive, ce qui signifie la commande d est utilisée dans le magasin m) :
 \[
 \forall d,m ~~~ M \cdot y_{md} \geq \sum_{f} q_{fmd}
 \]
 
 \(M\) étant une grande constante.
 
-- Répartition des magasins (2) :
+- Répartition des magasins (De la même façon que la contrainte précédentes, \(y\) doit être égale à 0 quand la quantité pour un magasin m et une commande d donnée est nulle) :
 \[
 \forall d,m, y_{md} \leq \sum_{f} q_{fmd}
 \]
 
-### Format
 
-`.mod` car matrice de variables avec une taille non fixe.
+### Format de fichier choisi
+
+Cette modélisation possède une matrice de variables avec une taille non fixe. Ainsi, **le format de fichier `.mod` est le plus adapté.**
 
 ### Résultat
 
@@ -401,7 +409,8 @@ Objective:  Cout = 354 (MINimum)
     17 Y[M2,D2]     *              1             0             1 
     18 Y[M3,D2]     *              0             0             1 
 ```
-Ordre de grandeur respectée (Cout fixe de l'ordre de la centaine + couts variables de l'ordre de la dixaine)
+
+Les résultats obtenus respectent l'ordre de grandeur attendu : les coûts fixes sont de l'ordre de la centaine et les coûts variables de l'ordre de la dizaine. Donc, le coût optimal est de l'ordre de la centaine. De plus, les contraintes de répartition des magasins sont correctement validées, c'est-à-dire qu'on n'a pas de magasin utilisé pour une commande sans prendre de colis, et vice-versa.
 
 ## 2.2.3 Livreur
 
@@ -443,9 +452,9 @@ Ce problème correspond au voyageur du commerce.
 
 où \( M \) est une grande constante.
 
-### Format
+### Format de fichier choisi
 
-`.mod` car matrice de variables avec une taille non fixe.
+Cette modélisation possède une matrice de variables avec une taille non fixe. Ainsi, **le format de fichier `.mod` est le plus adapté.**
 
 ### Modèle
 
@@ -598,8 +607,13 @@ graph LR;
     C1 -->|1| ALPHA;
 ```
 
-On distingue deux zones où les déplacements entre les lieux de ces zones sont de faibles couts : 
+On distingue deux zones où les déplacements au sein de ces zones sont de faibles coûts : 
 - alpha-c1-c2
 - c3-c4-c5
 
 Le passage entre ces deux zones est le plus couteux. Ainsi, le parcours trouvé passe par les transitions avec les poids les plus faible entre les zones (c'est à dire ici 8 et 10).
+
+On peut donc valider cette solution qui est cohérente au vu des données.
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
